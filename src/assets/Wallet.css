@@ -1,0 +1,13 @@
+.wallet-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wallet-title {
+  margin-left: 20px;
+}
+
+.user-info p {
+  margin-right: 20px;
+}
