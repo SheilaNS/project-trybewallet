@@ -1,0 +1,6 @@
+.expenses-form {
+  background-color: aquamarine;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
