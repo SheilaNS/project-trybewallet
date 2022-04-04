@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import '../assets/Wallet.css';
 import fecthQuotationAPI from '../actions/wallet';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -38,7 +39,7 @@ class Wallet extends React.Component {
   };
 
   render() {
-    const { userEmail } = this.props;
+    const { userEmail, expen } = this.props;
     const { total } = this.state;
     return (
       <>
@@ -60,6 +61,7 @@ class Wallet extends React.Component {
           </div>
         </header>
         <Form handleClick={ this.changeTotal } />
+        { expen.length > 0 && <Table /> }
       </>
     );
   }
