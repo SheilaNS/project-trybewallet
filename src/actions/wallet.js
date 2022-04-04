@@ -1,7 +1,7 @@
 import { RECIEVE_API_QUOTATION, REQUEST_API } from '.';
 import quotationAPI from '../service/quotationAPI';
 
-const requestAPICurr = () => ({ type: REQUEST_API });
+const requestAPI = () => ({ type: REQUEST_API });
 
 const recieveAPICurr = (codes) => {
   const keys = Object.keys(codes).filter((elem) => elem !== 'USDT');
@@ -13,7 +13,7 @@ const recieveAPICurr = (codes) => {
 
 const fecthQuotationAPI = () => async (dispatch) => {
   try {
-    dispatch(requestAPICurr());
+    dispatch(requestAPI());
     const data = await quotationAPI();
     return dispatch(recieveAPICurr(data));
   } catch (error) {

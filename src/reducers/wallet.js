@@ -1,4 +1,5 @@
-import { RECIEVE_API_QUOTATION, REQUEST_API } from '../actions';
+import { RECIEVE_API_QUOTATION, RECIEVE_API_RATE,
+  RECIEVE_WALLET_INFO, REQUEST_API } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
@@ -18,6 +19,21 @@ const walletRDC = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.curr,
     };
+  case RECIEVE_API_RATE:
+    return {
+      ...state,
+      rates: action.rates,
+    };
+  case RECIEVE_WALLET_INFO:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.wallet],
+    };
+  // case CHANGE_TOTAL:
+  //   return {
+  //     ...state,
+  //     total: action.total,
+  //   };
   default:
     return state;
   }

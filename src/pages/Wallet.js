@@ -6,14 +6,40 @@ import fecthQuotationAPI from '../actions/wallet';
 import Form from '../components/Form';
 
 class Wallet extends React.Component {
-  // async componentDidMount() {
-  //   const { currencie } = this.props;
-  //   currencie();
-  // }
+  constructor() {
+    super();
+    this.state = {
+      total: 0,
+    };
+  }
+
+  async componentDidMount() {
+    const { currencie } = this.props;
+    currencie();
+  }
+
+  changeTotal = () => {
+    const { expen } = this.props;
+    const totalDep = expen;
+    const askTotal = totalDep.map((elem) => {
+      const moeda = Object.values(elem.exchangeRates)
+        .filter((key) => key.code === elem.currency && key.codein !== 'BRLT');
+      return Number(moeda[0].ask * elem.value);
+    });
+    let despesaTotal = 0;
+    if (askTotal.length !== 0) {
+      for (let i = 0; i < askTotal.length; i += 1) {
+        despesaTotal += +askTotal[i];
+      }
+      this.setState({
+        total: despesaTotal.toFixed(2),
+      });
+    }
+  };
 
   render() {
-    const { userEmail, currencie } = this.props;
-    currencie();
+    const { userEmail } = this.props;
+    const { total } = this.state;
     return (
       <>
         <header className="wallet-header">
@@ -27,13 +53,13 @@ class Wallet extends React.Component {
             <p>
               Despesa total:
               {' '}
-              <span data-testid="total-field">0</span>
+              <span data-testid="total-field">{ total }</span>
               {' '}
               <span data-testid="header-currency-field">BRL</span>
             </p>
           </div>
         </header>
-        <Form />
+        <Form handleClick={ this.changeTotal } />
       </>
     );
   }
@@ -41,6 +67,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  expen: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
