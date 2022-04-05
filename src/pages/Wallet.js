@@ -5,42 +5,42 @@ import '../assets/Wallet.css';
 import fecthQuotationAPI from '../actions/wallet';
 import Form from '../components/Form';
 import Table from '../components/Table';
+import { deleteTask } from '../actions';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      total: 0,
-    };
-  }
-
   async componentDidMount() {
     const { currencie } = this.props;
     currencie();
+    this.changeTotal();
   }
 
+  // Ajuste do valor atualizado sem o state do componente com o Danillo
   changeTotal = () => {
     const { expen } = this.props;
-    const totalDep = expen;
-    const askTotal = totalDep.map((elem) => {
+    const totalDep = expen.map((elem) => {
       const moeda = Object.values(elem.exchangeRates)
         .filter((key) => key.code === elem.currency && key.codein !== 'BRLT');
       return Number(moeda[0].ask * elem.value);
     });
     let despesaTotal = 0;
-    if (askTotal.length !== 0) {
-      for (let i = 0; i < askTotal.length; i += 1) {
-        despesaTotal += +askTotal[i];
+    if (totalDep.length !== 0) {
+      for (let i = 0; i < totalDep.length; i += 1) {
+        despesaTotal += +totalDep[i];
       }
-      this.setState({
-        total: despesaTotal.toFixed(2),
-      });
+      return despesaTotal.toFixed(2);
     }
+    return 0;
   };
+
+  // Ajuda de onde fazer a função delete com o André Felipe
+  handleDelete = async ({ target }) => {
+    const { delTask } = this.props;
+    await delTask(target.value);
+    this.changeTotal();
+  }
 
   render() {
     const { userEmail, expen } = this.props;
-    const { total } = this.state;
     return (
       <>
         <header className="wallet-header">
@@ -54,14 +54,15 @@ class Wallet extends React.Component {
             <p>
               Despesa total:
               {' '}
-              <span data-testid="total-field">{ total }</span>
+              <span data-testid="total-field">{ this.changeTotal() }</span>
               {' '}
               <span data-testid="header-currency-field">BRL</span>
             </p>
           </div>
         </header>
         <Form handleClick={ this.changeTotal } />
-        { expen.length > 0 && <Table /> }
+        { expen.length > 0
+        && <Table handleDelete={ this.handleDelete } /> }
       </>
     );
   }
@@ -74,10 +75,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   currencie: (state) => dispatch(fecthQuotationAPI(state)),
+  delTask: (tasks) => dispatch(deleteTask(tasks)),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string,
+  expen: PropTypes.arrayOf(PropTypes.any),
+  currencie: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

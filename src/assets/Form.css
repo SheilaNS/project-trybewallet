@@ -22,3 +22,13 @@
   font-size: 1rem;
   width: 100px;
 }
+
+.submit-btn {
+  background-color: lightcoral;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 1.1rem;
+  height: 40px;
+  margin: 10px;
+  width: 180px;
+}

@@ -134,6 +134,7 @@ class Form extends Component {
         </label>
         <button
           type="submit"
+          className="submit-btn"
         >
           Adicionar despesa
         </button>

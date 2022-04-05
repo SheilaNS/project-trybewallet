@@ -76,6 +76,7 @@ class Login extends React.Component {
           </label>
           <Link to="/carteira">
             <button
+              className="login-btn"
               type="button"
               disabled={ disabled }
               onClick={ this.handleClick }

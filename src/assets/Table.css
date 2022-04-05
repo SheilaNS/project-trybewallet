@@ -1,0 +1,46 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.title {
+  font-size: 1.6rem;
+}
+
+.table {
+  background-color: lightgray;
+  border: 2px solid rgb(88, 88, 88);
+  display: flex;
+  flex-flow: column;
+  max-width: 100%;
+  padding: 1px;
+}
+
+.table-head {
+  background-color: gray;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.head-tr , .body-tr {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.head-td , .body-td {
+  align-items: center;
+  border-bottom: 1px solid rgb(88, 88, 88);
+  display: flex;
+  flex-basis: 2px;
+  flex-grow: 2;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2px;
+  text-align: left;
+}
+
+.body-tr {
+  font-size: 0.9rem;
+}

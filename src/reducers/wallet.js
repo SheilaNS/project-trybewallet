@@ -1,4 +1,4 @@
-import { RECIEVE_API_QUOTATION, RECIEVE_API_RATE,
+import { DELETE_TASK, RECIEVE_API_QUOTATION, RECIEVE_API_RATE,
   RECIEVE_WALLET_INFO, REQUEST_API } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 };
 
 const walletRDC = (state = INITIAL_STATE, action) => {
-  // const keys = Object.keys(quotation);
   switch (action.type) {
   case REQUEST_API:
     return {
@@ -29,11 +28,11 @@ const walletRDC = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, action.wallet],
     };
-  // case CHANGE_TOTAL:
-  //   return {
-  //     ...state,
-  //     total: action.total,
-  //   };
+  case DELETE_TASK:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expe) => expe.id !== action.task),
+    };
   default:
     return state;
   }

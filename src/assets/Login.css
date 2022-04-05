@@ -31,7 +31,7 @@ input {
   margin-left: 10px;
 }
 
-button {
+.login-btn {
   background-color: yellowgreen;
   border-radius: 5px;
   border-style: none;
